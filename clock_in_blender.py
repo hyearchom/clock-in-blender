@@ -127,18 +127,20 @@ def add_line(angle):
 
 def set_time(hours, minutes):
     """Overarching function for seting hands on the clock."""
-    set_hours(hours)
+    set_hours(hours, minutes)
     set_minutes(minutes)
 
 
-def set_hours(hours):
-    # simple change of 24 hours format into analog 12 hours format
+def set_hours(hours, minutes):
+    # simple change of 24 hour format into analog 12 hour format
     if hours >= 12:
         hours -= 12
+    # adjusting position of hour hand according to number of minutes    
+    hours = hours + float(minutes/60)
     # adding hand into correct angle with z-axis based on hours parameter
     bpy.ops.mesh.primitive_cube_add(
         scale=(0.7*CLOCK_DEPTH, 0.3*CLOCK_RADIUS, 1.2*CLOCK_DEPTH), rotation=(0, 0, hours * (-pi/6)))
-    # moving hand to position, when its beginning is on global position (0,0)
+    # moving hand to position, when its beginning is in global position (0,0)
     bpy.ops.transform.translate(value=(0 ,0.3*CLOCK_RADIUS, 0), orient_type='LOCAL')
     rename('Hand_Hours')
     assign_material('hand')
