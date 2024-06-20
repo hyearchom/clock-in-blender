@@ -1,6 +1,7 @@
 import sys
 import bpy
 from math import pi
+from random import randrange
 
 # Settings:
 
@@ -36,6 +37,8 @@ def get_inputs():
                     inputs[0] = extract_argument(arguments, part, 24)
                 case '--minutes' | '-m':
                     inputs[1] = extract_argument(arguments, part, 60)
+                case '--random'| '-r':
+                    inputs = random_time()
                 # skipping expected number parameters
                 case part if part.isnumeric():
                     pass
@@ -62,6 +65,13 @@ def extract_argument(group, selection, limit):
     except ValueError:
         print(f'Argument {selection} has to specified with number to maximum of {limit}')
         print_help()
+
+
+def random_time():
+    time = [0,0]
+    time[0] = randrange(24) # set random hour (0-23)
+    time[1] = randrange(60) # set random minute (0-59)
+    return time
 
 
 def print_help():

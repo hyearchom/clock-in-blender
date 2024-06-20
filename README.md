@@ -34,3 +34,7 @@
 - `--minutes [-m]`
     
 	- whole number of minutes with limit of 60 (excluded), default value 0
+
+- `--random [-r]`
+    
+	- ask the script to create hour with random time set
