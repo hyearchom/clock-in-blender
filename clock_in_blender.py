@@ -5,9 +5,10 @@ from random import randrange
 
 # Settings:
 
-CLOCK_RADIUS = 6.75
-CLOCK_DEPTH = 0.5
+CLOCK_RADIUS = 6.75 # radius of the clock in blender
+CLOCK_DEPTH = 0.5 # depth of the clock in blender
 
+# color choice in RGBA for different part of the clock
 SURFACES = [
     # color Light Blue
     {'name': "hand", 'color': (0.7, 0.8, 1, 1)},
@@ -23,8 +24,7 @@ def get_inputs():
     """Extracting line arguments.
 
     Use of argparse module is in direct conflict with blender arguments,
-    so I used custom solution instead of rewriting part of the module.
-    """
+    so I used custom solution instead of rewriting part of the package."""
     inputs = [0,0] # default values
     arguments = sys.argv
     
@@ -68,6 +68,7 @@ def extract_argument(group, selection, limit):
 
 
 def random_time():
+    """Choosing random time for clock to display."""
     time = [0,0]
     time[0] = randrange(24) # set random hour (0-23)
     time[1] = randrange(60) # set random minute (0-59)
@@ -115,6 +116,7 @@ def rename(new_name):
 
 
 def assign_material(material_name):
+    """Giving object specific behaviour how to react to light"""
     last_object = bpy.context.active_object
     material = bpy.data.materials[material_name]
     last_object.data.materials.append(material)
@@ -127,6 +129,7 @@ def create_section_lines():
 
 
 def add_line(angle):
+    """Creation of clock lines, which represent minutes and hours on the clock"""
     bpy.ops.mesh.primitive_cube_add(
         scale=(0.5*CLOCK_DEPTH, 0.1*CLOCK_RADIUS, CLOCK_DEPTH), rotation=(0, 0, angle))
     # translating lanes based on their rotation around z-axis into correct hour position
@@ -142,6 +145,7 @@ def set_time(hours, minutes):
 
 
 def set_hours(hours, minutes):
+    """Adding hand into correct angle with z-axis based on hours parameter."""
     # simple change of 24 hour format into analog 12 hour format
     if hours >= 12:
         hours -= 12

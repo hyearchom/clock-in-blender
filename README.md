@@ -4,7 +4,7 @@
 
 - You can run the script in terminal with the following syntax:
     
-    `blender --python=*path_to_file*  -- --hours 0-23 -- minutes 0-59`
+    `blender --python=*path_to_file*  -- --hours 0-23 --minutes 0-59`
 
 #### Description:
 
